@@ -4,17 +4,18 @@
 /* spacemod.cpp -- simple model for C++ space */
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 #define MEASURE(T, text) {					\
 	cout << text << "\t";					\
 	cout << sizeof(T) << "\t";				\
-	int lastp = 0;							\
+	void* lastp = 0;							\
 	for (int i = 0; i < 11; i++) {			\
 		T *p = new T;						\
-		int thisp = (int) p;				\
+		void* thisp = (void *) p;				\
 		if (lastp != 0)						\
-			cout << " " << thisp - lastp;	\
+			cout << " " << (void*)thisp - (void *)lastp;	\
 		lastp = thisp;						\
 	}										\
 	cout << "\n";							\
@@ -23,7 +24,7 @@ using namespace std;
 // Must use macros; templates give funny answers
 
 template <class T>
-void measure(char *text)
+void measure(const char *text)
 {	cout << " measure: " << text << "\t";
 	cout << sizeof(T) << "\n";
 }
@@ -56,6 +57,7 @@ int main()
 	cout << "\nsizeof(double)="   << sizeof(double);
 
 	cout << "\n\nMEASURE macro\n";
+        /*
 	MEASURE(int, "int");
 	MEASURE(structc, "structc");
 	MEASURE(structic, "structic");
@@ -74,11 +76,24 @@ int main()
 	MEASURE(structc60, "structc60");
 	MEASURE(structc61, "structc61");
 
+        */
 	
 	cout << "\nmeasure template (strange results)\n";
 	// Uncomment below lines to see answers change
 	measure<int>("int");
-//	measure<structc>("structc");
-//	measure<structic>("structic");
+	measure<structc>("structc");
+	measure<structic>("structic");
+	measure<structip>("structip");
+	measure<structdc>("structdc");
+	measure<structcd>("structcd");
+	measure<structcdc>("structcdc");
+	measure<structiii>("structiii");
+	measure<structiic>("structiic");
+	measure<structc12>("structc12");
+	measure<structc13>("structc13");
+	measure<structc28>("structc28");
+	measure<structc29>("structc29");
+	measure<structc44>("structc44");
+	measure<structc45>("structc45");
 	return 0;
 }
