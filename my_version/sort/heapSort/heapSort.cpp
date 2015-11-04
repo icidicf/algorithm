@@ -66,10 +66,17 @@ void heapSort(vector<int> &v)
 	
 	int val;
 	for (i = 0; i < n - 1; ++i) {
-		val = v[0];
+/*		val = v[0];
 		v[0] = v[n - 1 - i];
 		percolateDown(v, 0, n - 1 - i);
 		v[n - 1 - i] = val;
+                */
+
+        //myfix 
+                val = v[0];
+                v[0] = v[n - 1 - i];
+                percolateDown(v, 0, n- 2 - i);
+                v[n - 1 - i] = val;
 	}
 }
 
